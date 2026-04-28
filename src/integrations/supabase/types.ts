@@ -14,6 +14,53 @@ export type Database = {
   }
   public: {
     Tables: {
+      bookings: {
+        Row: {
+          check_in_date: string
+          check_out_date: string
+          client_name: string
+          created_at: string
+          id: string
+          payment_status: Database["public"]["Enums"]["payment_status"]
+          room_id: string
+          total_amount: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          check_in_date: string
+          check_out_date: string
+          client_name: string
+          created_at?: string
+          id?: string
+          payment_status?: Database["public"]["Enums"]["payment_status"]
+          room_id: string
+          total_amount?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          check_in_date?: string
+          check_out_date?: string
+          client_name?: string
+          created_at?: string
+          id?: string
+          payment_status?: Database["public"]["Enums"]["payment_status"]
+          room_id?: string
+          total_amount?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "rooms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       employees: {
         Row: {
           allowances: number
@@ -56,6 +103,39 @@ export type Database = {
           role_title?: string
           sacco_deduction?: number
           updated_at?: string
+        }
+        Relationships: []
+      }
+      expenses: {
+        Row: {
+          amount: number
+          category: Database["public"]["Enums"]["expense_category"]
+          created_at: string
+          date: string
+          description: string | null
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount?: number
+          category?: Database["public"]["Enums"]["expense_category"]
+          created_at?: string
+          date?: string
+          description?: string | null
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          category?: Database["public"]["Enums"]["expense_category"]
+          created_at?: string
+          date?: string
+          description?: string | null
+          id?: string
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -202,6 +282,36 @@ export type Database = {
         }
         Relationships: []
       }
+      rooms: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          price_per_night: number
+          status: Database["public"]["Enums"]["room_status"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          price_per_night?: number
+          status?: Database["public"]["Enums"]["room_status"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          price_per_night?: number
+          status?: Database["public"]["Enums"]["room_status"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -238,6 +348,14 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "user"
+      expense_category:
+        | "rent"
+        | "water"
+        | "electricity"
+        | "maintenance"
+        | "other"
+      payment_status: "paid" | "unpaid" | "partial"
+      room_status: "available" | "occupied"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -366,6 +484,15 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "user"],
+      expense_category: [
+        "rent",
+        "water",
+        "electricity",
+        "maintenance",
+        "other",
+      ],
+      payment_status: ["paid", "unpaid", "partial"],
+      room_status: ["available", "occupied"],
     },
   },
 } as const
