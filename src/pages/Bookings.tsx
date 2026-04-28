@@ -77,7 +77,7 @@ export default function Bookings() {
   };
 
   const updatePayment = async (id: string, status: string) => {
-    const { error } = await supabase.from("bookings").update({ payment_status: status }).eq("id", id);
+    const { error } = await supabase.from("bookings").update({ payment_status: status as any }).eq("id", id);
     if (error) return toast.error(error.message);
     load();
   };
