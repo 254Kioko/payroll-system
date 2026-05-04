@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid } from "recharts";
 import { DollarSign, TrendingDown, TrendingUp, BedDouble } from "lucide-react";
-import { format, startOfWeek, startOfMonth, subDays, eachDayOfInterval } from "date-fns";
+import { format, subDays, eachDayOfInterval, parseISO } from "date-fns";
 
 type Range = "weekly" | "monthly";
 
@@ -27,7 +27,8 @@ export default function Dashboard() {
 
   const { income, expense, profit, chartData } = useMemo(() => {
     const today = new Date();
-    const startDate = range === "weekly" ? subDays(today, 6) : startOfMonth(today);
+    const daysBack = range === "weekly" ? 6 : 29;
+    const startDate = subDays(today, daysBack);
     const days = eachDayOfInterval({ start: startDate, end: today });
     const startKey = format(startDate, "yyyy-MM-dd");
     const endKey = format(today, "yyyy-MM-dd");
