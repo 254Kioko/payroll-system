@@ -26,12 +26,19 @@ export default function Dashboard() {
   }, []);
 
   const { income, expense, profit, chartData } = useMemo(() => {
-    const start = range === "weekly" ? startOfWeek(new Date()) : startOfMonth(new Date());
-    const days = eachDayOfInterval({ start: range === "weekly" ? subDays(new Date(), 6) : start, end: new Date() });
+    const today = new Date();
+    const startDate = range === "weekly" ? subDays(today, 6) : startOfMonth(today);
+    const days = eachDayOfInterval({ start: startDate, end: today });
+    const startKey = format(startDate, "yyyy-MM-dd");
+    const endKey = format(today, "yyyy-MM-dd");
 
-    const inRange = (d: string) => new Date(d) >= (range === "weekly" ? subDays(new Date(), 6) : start);
-    const income = bookings.filter(b => inRange(b.check_in_date) && b.payment_status === "paid").reduce((s, b) => s + Number(b.total_amount), 0);
-    const expense = expenses.filter(x => inRange(x.date)).reduce((s, x) => s + Number(x.amount), 0);
+    const inRange = (d: string) => d >= startKey && d <= endKey;
+    const income = bookings
+      .filter(b => b.check_in_date && inRange(b.check_in_date) && b.payment_status === "paid")
+      .reduce((s, b) => s + Number(b.total_amount), 0);
+    const expense = expenses
+      .filter(x => x.date && inRange(x.date))
+      .reduce((s, x) => s + Number(x.amount), 0);
 
     const chartData = days.map(d => {
       const key = format(d, "yyyy-MM-dd");
