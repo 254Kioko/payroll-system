@@ -51,7 +51,7 @@ export default function Auth() {
           <div className="mx-auto w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
             <Building2 className="w-6 h-6 text-primary-foreground" />
           </div>
-          <CardTitle className="text-2xl">StayLedger</CardTitle>
+          <CardTitle className="text-2xl">BNBLedger</CardTitle>
           <CardDescription>Manage bookings, income & expenses</CardDescription>
         </CardHeader>
         <CardContent>
