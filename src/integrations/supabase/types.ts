@@ -114,6 +114,7 @@ export type Database = {
           date: string
           description: string | null
           id: string
+          room_id: string | null
           updated_at: string
           user_id: string
         }
@@ -124,6 +125,7 @@ export type Database = {
           date?: string
           description?: string | null
           id?: string
+          room_id?: string | null
           updated_at?: string
           user_id: string
         }
@@ -134,6 +136,7 @@ export type Database = {
           date?: string
           description?: string | null
           id?: string
+          room_id?: string | null
           updated_at?: string
           user_id?: string
         }
