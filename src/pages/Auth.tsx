@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { Building2 } from "lucide-react";
 
@@ -31,19 +30,6 @@ export default function Auth() {
     navigate("/");
   };
 
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { emailRedirectTo: `${window.location.origin}/` },
-    });
-    setLoading(false);
-    if (error) return toast.error(error.message);
-    toast.success("Account created! Check your email to confirm.");
-  };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4" style={{ background: "var(--gradient-primary)" }}>
       <Card className="w-full max-w-md shadow-2xl">
@@ -52,41 +38,20 @@ export default function Auth() {
             <Building2 className="w-6 h-6 text-primary-foreground" />
           </div>
           <CardTitle className="text-2xl">BNBLedger</CardTitle>
-          <CardDescription>Manage bookings, income & expenses</CardDescription>
+          <CardDescription>Sign in to manage bookings, income & expenses</CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="signin">
-            <TabsList className="grid grid-cols-2 w-full">
-              <TabsTrigger value="signin">Sign In</TabsTrigger>
-              <TabsTrigger value="signup">Sign Up</TabsTrigger>
-            </TabsList>
-            <TabsContent value="signin">
-              <form onSubmit={handleSignIn} className="space-y-4 mt-4">
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" required value={email} onChange={e => setEmail(e.target.value)} />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="password">Password</Label>
-                  <Input id="password" type="password" required value={password} onChange={e => setPassword(e.target.value)} />
-                </div>
-                <Button type="submit" className="w-full" disabled={loading}>Sign In</Button>
-              </form>
-            </TabsContent>
-            <TabsContent value="signup">
-              <form onSubmit={handleSignUp} className="space-y-4 mt-4">
-                <div className="space-y-2">
-                  <Label htmlFor="email2">Email</Label>
-                  <Input id="email2" type="email" required value={email} onChange={e => setEmail(e.target.value)} />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="password2">Password</Label>
-                  <Input id="password2" type="password" minLength={6} required value={password} onChange={e => setPassword(e.target.value)} />
-                </div>
-                <Button type="submit" className="w-full" disabled={loading}>Create Account</Button>
-              </form>
-            </TabsContent>
-          </Tabs>
+          <form onSubmit={handleSignIn} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" type="email" required value={email} onChange={e => setEmail(e.target.value)} />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <Input id="password" type="password" required value={password} onChange={e => setPassword(e.target.value)} />
+            </div>
+            <Button type="submit" className="w-full" disabled={loading}>Sign In</Button>
+          </form>
         </CardContent>
       </Card>
     </div>
