@@ -105,6 +105,7 @@ export default function Auth() {
             {/* Contact Developer Link */}
             <p className="text-sm text-center text-muted-foreground">
               Don&apos;t have an account?{" "}
+                <br />
               <a
                 href="https://wa.me/254742048000"
                 target="_blank"
