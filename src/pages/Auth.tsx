@@ -109,8 +109,7 @@ export default function Auth() {
                 href="https://wa.me/254742048000"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary font-medium hover:underline"
-              >
+className="text-primary font-medium underline hover:opacity-80"              >
                 Contact developer for account creation
               </a>
             </p>
