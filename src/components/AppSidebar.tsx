@@ -13,6 +13,8 @@ const items = [
   { title: "Bookings", url: "/bookings", icon: CalendarCheck },
   { title: "Expenses", url: "/expenses", icon: Receipt },
   { title: "Guests", url: "/guests", icon: Users },
+ { title: "Support", url: "/support", icon: MessageCircle },
+
 ];
 
 export function AppSidebar() {
