@@ -142,6 +142,36 @@ export type Database = {
         }
         Relationships: []
       }
+      guest_registrations: {
+        Row: {
+          created_at: string
+          full_name: string
+          gender: string
+          id: string
+          id_number: string
+          occupants: number
+          phone: string
+        }
+        Insert: {
+          created_at?: string
+          full_name: string
+          gender: string
+          id?: string
+          id_number: string
+          occupants?: number
+          phone: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string
+          gender?: string
+          id?: string
+          id_number?: string
+          occupants?: number
+          phone?: string
+        }
+        Relationships: []
+      }
       payroll: {
         Row: {
           allowances: number
