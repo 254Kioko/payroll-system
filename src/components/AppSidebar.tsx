@@ -1,5 +1,13 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { LayoutDashboard, BedDouble, CalendarCheck, Receipt, LogOut, Building2, Users } from "lucide-react";
+import {
+  LayoutDashboard,
+  BedDouble,
+  CalendarCheck,
+  Receipt,
+  LogOut,
+  Building2,
+  Users,
+  MessageCircle} from "lucide-react";
 import {
   Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel,
   SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarHeader, SidebarFooter, useSidebar,
