@@ -119,10 +119,10 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard icon={<TrendingUp className="w-5 h-5" />} label="Total Income" value={`$${income.toFixed(2)}`} tone="success" />
-        <StatCard icon={<TrendingDown className="w-5 h-5" />} label="Total Expenses" value={`$${expense.toFixed(2)}`} tone="destructive" />
-        <StatCard icon={<DollarSign className="w-5 h-5" />} label={profit >= 0 ? "Profit" : "Loss"} value={`$${profit.toFixed(2)}`} tone={profit >= 0 ? "primary" : "destructive"} />
-        <StatCard icon={<BedDouble className="w-5 h-5" />} label="Rooms" value={String(roomCount)} sub={`$${unpaid.toFixed(2)} unpaid`} tone="primary" />
+        <StatCard icon={<TrendingUp className="w-5 h-5" />} label="Total Income" value={`KSh ${income.toFixed(2)}`} tone="success" />
+        <StatCard icon={<TrendingDown className="w-5 h-5" />} label="Total Expenses" value={`KSh ${expense.toFixed(2)}`} tone="destructive" />
+        <StatCard icon={<DollarSign className="w-5 h-5" />} label={profit >= 0 ? "Profit" : "Loss"} value={`KSh ${profit.toFixed(2)}`} tone={profit >= 0 ? "primary" : "destructive"} />
+        <StatCard icon={<BedDouble className="w-5 h-5" />} label="Rooms" value={String(roomCount)} sub={`KSh ${unpaid.toFixed(2)} unpaid`} tone="primary" />
       </div>
 
       <Card>

@@ -147,7 +147,7 @@ export default function Rooms() {
               {rooms.map(r => (
                 <TableRow key={r.id}>
                   <TableCell className="font-medium">{r.name}</TableCell>
-                  <TableCell>${Number(r.price_per_night).toFixed(2)}</TableCell>
+                  <TableCell>KSh {Number(r.price_per_night).toFixed(2)}</TableCell>
                   <TableCell><Badge variant={r.status === "available" ? "secondary" : "default"}>{r.status}</Badge></TableCell>
                   <TableCell className="text-right space-x-1">
                     <Button size="icon" variant="ghost" onClick={() => openEdit(r)}><Pencil className="w-4 h-4" /></Button>
