@@ -42,7 +42,7 @@ export function AppSidebar() {
           <div className="w-8 h-8 rounded-lg bg-sidebar-primary flex items-center justify-center shrink-0">
             <Building2 className="w-4 h-4 text-sidebar-primary-foreground" />
           </div>
-          {!collapsed && <span className="font-semibold text-sidebar-foreground">StayLedger</span>}
+          {!collapsed && <span className="font-semibold text-sidebar-foreground">BnBLedger</span>}
         </div>
       </SidebarHeader>
       <SidebarContent>
