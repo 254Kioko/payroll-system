@@ -126,7 +126,7 @@ export default function Bookings() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="p-3 rounded-md bg-muted text-sm">Total: <strong>${computedTotal.toFixed(2)}</strong></div>
+                <div className="p-3 rounded-md bg-muted text-sm">Total: <strong>KSh {computedTotal.toFixed(2)}</strong></div>
                 <DialogFooter><Button type="submit" disabled={!roomId}>Create</Button></DialogFooter>
               </form>
             </DialogContent>
