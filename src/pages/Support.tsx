@@ -59,7 +59,7 @@ ${issue}
 
           <Button onClick={sendToWhatsApp} className="w-full">
             <MessageCircle className="w-4 h-4 mr-2" />
-            Contact Support on WhatsApp
+            Contact Support 
           </Button>
         </CardContent>
       </Card>
