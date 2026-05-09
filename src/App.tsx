@@ -8,6 +8,7 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import AppLayout from "@/components/AppLayout";
 import Auth from "./pages/Auth";
 import SignUp from "./pages/SignUp";
+import GuestRegister from "./pages/GuestRegister";
 import Dashboard from "./pages/Dashboard";
 import Rooms from "./pages/Rooms";
 import Bookings from "./pages/Bookings";
