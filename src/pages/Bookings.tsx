@@ -134,6 +134,10 @@ export default function Bookings() {
                   <div className="space-y-2"><Label>Check-in</Label><Input type="date" required value={checkIn} onChange={e => setCheckIn(e.target.value)} /></div>
                   <div className="space-y-2"><Label>Check-out</Label><Input type="date" required value={checkOut} onChange={e => setCheckOut(e.target.value)} /></div>
                 </div>
+                <div className="space-y-2">
+                  <Label>Discount (KSh)</Label>
+                  <Input type="number" min={0} step="0.01" value={discount} onChange={e => setDiscount(e.target.value)} />
+                </div>
                 <div className="space-y-2"><Label>Payment</Label>
                   <Select value={payment} onValueChange={(v: any) => setPayment(v)}>
                     <SelectTrigger><SelectValue /></SelectTrigger>
@@ -144,8 +148,14 @@ export default function Bookings() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="p-3 rounded-md bg-muted text-sm">Total: <strong>KSh {computedTotal.toFixed(2)}</strong></div>
-                <DialogFooter><Button type="submit" disabled={!roomId}>Create</Button></DialogFooter>
+                <div className="p-3 rounded-md bg-muted text-sm space-y-1">
+                  <div className="flex justify-between"><span>Nights</span><span>{nights}</span></div>
+                  <div className="flex justify-between"><span>Rate / night</span><span>KSh {Number(selectedRoom?.price_per_night ?? 0).toFixed(2)}</span></div>
+                  <div className="flex justify-between"><span>Subtotal</span><span>KSh {subtotal.toFixed(2)}</span></div>
+                  <div className="flex justify-between"><span>Discount</span><span>− KSh {discountNum.toFixed(2)}</span></div>
+                  <div className="flex justify-between border-t pt-1 mt-1 font-semibold"><span>Total</span><span>KSh {computedTotal.toFixed(2)}</span></div>
+                </div>
+                <DialogFooter><Button type="submit" disabled={!roomId || nights <= 0}>Create</Button></DialogFooter>
               </form>
             </DialogContent>
           </Dialog>
