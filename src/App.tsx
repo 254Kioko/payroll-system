@@ -13,6 +13,7 @@ import Dashboard from "./pages/Dashboard";
 import Rooms from "./pages/Rooms";
 import Bookings from "./pages/Bookings";
 import Expenses from "./pages/Expenses";
+import Guests from "./pages/Guests";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
