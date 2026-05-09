@@ -109,7 +109,7 @@ export default function Bookings() {
   const doExport = () => exportCSV("bookings.csv", filtered.map(b => ({
     client: b.client_name, room: b.rooms?.name ?? "",
     check_in: b.check_in_date, check_out: b.check_out_date,
-    total: b.total_amount, payment: b.payment_status,
+    discount: Number(b.discount_amount ?? 0), total: b.total_amount, payment: b.payment_status,
   })));
 
   return (
