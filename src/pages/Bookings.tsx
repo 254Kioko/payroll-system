@@ -108,7 +108,7 @@ export default function Bookings() {
                 <div className="space-y-2"><Label>Room</Label>
                   <Select value={roomId} onValueChange={setRoomId} required>
                     <SelectTrigger><SelectValue placeholder="Select room" /></SelectTrigger>
-                    <SelectContent>{rooms.map(r => <SelectItem key={r.id} value={r.id}>{r.name} — ${r.price_per_night}/night</SelectItem>)}</SelectContent>
+                    <SelectContent>{rooms.map(r => <SelectItem key={r.id} value={r.id}>{r.name} — KSh {r.price_per_night}/night</SelectItem>)}</SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2"><Label>Client name</Label><Input required value={client} onChange={e => setClient(e.target.value)} /></div>
