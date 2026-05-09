@@ -13,6 +13,7 @@ import Dashboard from "./pages/Dashboard";
 import Rooms from "./pages/Rooms";
 import Bookings from "./pages/Bookings";
 import Expenses from "./pages/Expenses";
+import Guests from "./pages/Guests";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +34,7 @@ const App = () => (
               <Route path="/rooms" element={<Rooms />} />
               <Route path="/bookings" element={<Bookings />} />
               <Route path="/expenses" element={<Expenses />} />
+              <Route path="/guests" element={<Guests />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

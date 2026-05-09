@@ -20,6 +20,7 @@ export type Database = {
           check_out_date: string
           client_name: string
           created_at: string
+          discount_amount: number
           id: string
           payment_status: Database["public"]["Enums"]["payment_status"]
           room_id: string
@@ -32,6 +33,7 @@ export type Database = {
           check_out_date: string
           client_name: string
           created_at?: string
+          discount_amount?: number
           id?: string
           payment_status?: Database["public"]["Enums"]["payment_status"]
           room_id: string
@@ -44,6 +46,7 @@ export type Database = {
           check_out_date?: string
           client_name?: string
           created_at?: string
+          discount_amount?: number
           id?: string
           payment_status?: Database["public"]["Enums"]["payment_status"]
           room_id?: string

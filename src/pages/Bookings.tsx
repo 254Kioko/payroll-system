@@ -18,7 +18,7 @@ interface Room { id: string; name: string; price_per_night: number; }
 interface Booking {
   id: string; room_id: string; client_name: string;
   check_in_date: string; check_out_date: string;
-  total_amount: number; payment_status: "paid" | "unpaid" | "partial";
+  total_amount: number; discount_amount: number; payment_status: "paid" | "unpaid" | "partial";
   rooms?: { name: string };
 }
 
@@ -35,6 +35,7 @@ export default function Bookings() {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [payment, setPayment] = useState<"paid" | "unpaid" | "partial">("unpaid");
+  const [discount, setDiscount] = useState("0");
 
   const load = async () => {
     const [{ data: b }, { data: r }] = await Promise.all([
@@ -48,21 +49,38 @@ export default function Bookings() {
   useEffect(() => { load(); }, []);
 
   const selectedRoom = rooms.find(r => r.id === roomId);
-  const computedTotal = useMemo(() => {
-    if (!selectedRoom || !checkIn || !checkOut) return 0;
-    const days = Math.max(1, differenceInDays(new Date(checkOut), new Date(checkIn)));
-    return days * Number(selectedRoom.price_per_night);
-  }, [selectedRoom, checkIn, checkOut]);
+  const nights = useMemo(() => {
+    if (!checkIn || !checkOut) return 0;
+    const d = differenceInDays(new Date(checkOut), new Date(checkIn));
+    return d > 0 ? d : 0;
+  }, [checkIn, checkOut]);
+  const subtotal = useMemo(() => {
+    if (!selectedRoom || nights <= 0) return 0;
+    return Math.round(nights * Number(selectedRoom.price_per_night) * 100) / 100;
+  }, [selectedRoom, nights]);
+  const discountNum = useMemo(() => {
+    const n = parseFloat(discount);
+    if (!isFinite(n) || n < 0) return 0;
+    return Math.min(n, subtotal);
+  }, [discount, subtotal]);
+  const computedTotal = useMemo(
+    () => Math.max(0, Math.round((subtotal - discountNum) * 100) / 100),
+    [subtotal, discountNum]
+  );
 
-  const reset = () => { setRoomId(""); setClient(""); setCheckIn(""); setCheckOut(""); setPayment("unpaid"); };
+  const reset = () => {
+    setRoomId(""); setClient(""); setCheckIn(""); setCheckOut("");
+    setPayment("unpaid"); setDiscount("0");
+  };
 
   const save = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return;
+    if (nights <= 0) return toast.error("Check-out must be after check-in");
     const { error } = await supabase.from("bookings").insert({
       user_id: user.id, room_id: roomId, client_name: client,
       check_in_date: checkIn, check_out_date: checkOut,
-      total_amount: computedTotal, payment_status: payment,
+      total_amount: computedTotal, discount_amount: discountNum, payment_status: payment,
     });
     if (error) return toast.error(error.message);
     toast.success("Booking created");
@@ -91,7 +109,7 @@ export default function Bookings() {
   const doExport = () => exportCSV("bookings.csv", filtered.map(b => ({
     client: b.client_name, room: b.rooms?.name ?? "",
     check_in: b.check_in_date, check_out: b.check_out_date,
-    total: b.total_amount, payment: b.payment_status,
+    discount: Number(b.discount_amount ?? 0), total: b.total_amount, payment: b.payment_status,
   })));
 
   return (
@@ -116,6 +134,10 @@ export default function Bookings() {
                   <div className="space-y-2"><Label>Check-in</Label><Input type="date" required value={checkIn} onChange={e => setCheckIn(e.target.value)} /></div>
                   <div className="space-y-2"><Label>Check-out</Label><Input type="date" required value={checkOut} onChange={e => setCheckOut(e.target.value)} /></div>
                 </div>
+                <div className="space-y-2">
+                  <Label>Discount (KSh)</Label>
+                  <Input type="number" min={0} step="0.01" value={discount} onChange={e => setDiscount(e.target.value)} />
+                </div>
                 <div className="space-y-2"><Label>Payment</Label>
                   <Select value={payment} onValueChange={(v: any) => setPayment(v)}>
                     <SelectTrigger><SelectValue /></SelectTrigger>
@@ -126,8 +148,14 @@ export default function Bookings() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="p-3 rounded-md bg-muted text-sm">Total: <strong>KSh {computedTotal.toFixed(2)}</strong></div>
-                <DialogFooter><Button type="submit" disabled={!roomId}>Create</Button></DialogFooter>
+                <div className="p-3 rounded-md bg-muted text-sm space-y-1">
+                  <div className="flex justify-between"><span>Nights</span><span>{nights}</span></div>
+                  <div className="flex justify-between"><span>Rate / night</span><span>KSh {Number(selectedRoom?.price_per_night ?? 0).toFixed(2)}</span></div>
+                  <div className="flex justify-between"><span>Subtotal</span><span>KSh {subtotal.toFixed(2)}</span></div>
+                  <div className="flex justify-between"><span>Discount</span><span>− KSh {discountNum.toFixed(2)}</span></div>
+                  <div className="flex justify-between border-t pt-1 mt-1 font-semibold"><span>Total</span><span>KSh {computedTotal.toFixed(2)}</span></div>
+                </div>
+                <DialogFooter><Button type="submit" disabled={!roomId || nights <= 0}>Create</Button></DialogFooter>
               </form>
             </DialogContent>
           </Dialog>
