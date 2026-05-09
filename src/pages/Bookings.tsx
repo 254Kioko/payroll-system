@@ -163,7 +163,7 @@ export default function Bookings() {
                   <TableCell>{b.rooms?.name}</TableCell>
                   <TableCell>{b.check_in_date}</TableCell>
                   <TableCell>{b.check_out_date}</TableCell>
-                  <TableCell>${Number(b.total_amount).toFixed(2)}</TableCell>
+                  <TableCell>KSh {Number(b.total_amount).toFixed(2)}</TableCell>
                   <TableCell>
                     <Select value={b.payment_status} onValueChange={(v) => updatePayment(b.id, v)}>
                       <SelectTrigger className="w-28 h-8"><SelectValue /></SelectTrigger>
