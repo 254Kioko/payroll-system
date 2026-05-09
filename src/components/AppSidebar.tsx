@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { LayoutDashboard, BedDouble, CalendarCheck, Receipt, LogOut, Building2 } from "lucide-react";
+import { LayoutDashboard, BedDouble, CalendarCheck, Receipt, LogOut, Building2, Users } from "lucide-react";
 import {
   Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel,
   SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarHeader, SidebarFooter, useSidebar,
@@ -12,6 +12,7 @@ const items = [
   { title: "Rooms", url: "/rooms", icon: BedDouble },
   { title: "Bookings", url: "/bookings", icon: CalendarCheck },
   { title: "Expenses", url: "/expenses", icon: Receipt },
+  { title: "Guests", url: "/guests", icon: Users },
 ];
 
 export function AppSidebar() {
