@@ -186,7 +186,7 @@ export default function Expenses() {
                   <TableCell>{i.date}</TableCell>
                   <TableCell className="capitalize">{i.category}</TableCell>
                   <TableCell>{roomName(i.room_id)}</TableCell>
-                  <TableCell>${Number(i.amount).toFixed(2)}</TableCell>
+                  <TableCell>KSh {Number(i.amount).toFixed(2)}</TableCell>
                   <TableCell className="text-muted-foreground">{i.description}</TableCell>
                   <TableCell className="text-right space-x-1">
                     <Button size="icon" variant="ghost" onClick={() => openEdit(i)}><Pencil className="w-4 h-4" /></Button>
