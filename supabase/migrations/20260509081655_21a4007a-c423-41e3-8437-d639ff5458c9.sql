@@ -1,0 +1,1 @@
+ALTER TABLE public.bookings ADD COLUMN discount_amount numeric NOT NULL DEFAULT 0;
