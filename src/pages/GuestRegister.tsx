@@ -1,14 +1,20 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Building2, CheckCircle2 } from "lucide-react";
+import { Building2, CheckCircle2, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 export default function GuestRegister() {
+  const { ownerId } = useParams<{ ownerId: string }>();
+  const validOwner = !!ownerId && UUID_RE.test(ownerId);
+
   const [fullName, setFullName] = useState("");
   const [idNumber, setIdNumber] = useState("");
   const [phone, setPhone] = useState("");
@@ -19,6 +25,8 @@ export default function GuestRegister() {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validOwner) return toast.error("Invalid registration link");
+
     const name = fullName.trim();
     const idn = idNumber.trim();
     const ph = phone.trim();
@@ -33,6 +41,7 @@ export default function GuestRegister() {
     setSubmitting(true);
     const { error } = await supabase.from("guest_registrations").insert({
       full_name: name, id_number: idn, phone: ph, gender, occupants: occ,
+      owner_id: ownerId,
     });
     setSubmitting(false);
     if (error) return toast.error(error.message);
@@ -50,7 +59,15 @@ export default function GuestRegister() {
           <CardDescription>Please fill in your details to check in</CardDescription>
         </CardHeader>
         <CardContent>
-          {done ? (
+          {!validOwner ? (
+            <div className="text-center py-8 space-y-3">
+              <AlertCircle className="w-12 h-12 text-destructive mx-auto" />
+              <h3 className="text-lg font-semibold">Invalid registration link</h3>
+              <p className="text-muted-foreground text-sm">
+                Please contact the front desk for a valid link.
+              </p>
+            </div>
+          ) : done ? (
             <div className="text-center py-8 space-y-3">
               <CheckCircle2 className="w-12 h-12 text-primary mx-auto" />
               <h3 className="text-lg font-semibold">Thank you!</h3>
