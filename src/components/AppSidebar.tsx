@@ -21,7 +21,8 @@ const items = [
   { title: "Bookings", url: "/bookings", icon: CalendarCheck },
   { title: "Expenses", url: "/expenses", icon: Receipt },
   { title: "Guests", url: "/guests", icon: Users },
- { title: "Support", url: "/support", icon: MessageCircle },
+  { title: "Users", url: "/users", icon: Users },
+  { title: "Support", url: "/support", icon: MessageCircle },
 
 ];
 
