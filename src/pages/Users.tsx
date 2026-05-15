@@ -29,12 +29,16 @@ export default function Users() {
   const [users, setUsers] = useState<SysUser[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const [currentEmail, setCurrentEmail] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+
+  const SUPER_ADMIN_EMAIL = "kiokoeddie254@gmail.com";
 
   const load = async () => {
     setLoading(true);
     const { data: { user } } = await supabase.auth.getUser();
     setCurrentUserId(user?.id ?? null);
+    setCurrentEmail(user?.email ?? null);
     const { data, error } = await supabase.functions.invoke("list-users");
     if (error) toast.error(error.message);
     else setUsers(data?.users ?? []);
