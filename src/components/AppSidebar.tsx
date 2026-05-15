@@ -31,6 +31,9 @@ export function AppSidebar() {
   const { pathname } = useLocation();
   const { signOut, user } = useAuth();
   const collapsed = state === "collapsed";
+  const items = user?.email?.toLowerCase() === SUPER_ADMIN_EMAIL
+    ? [...baseItems.slice(0, 5), { title: "Users", url: "/users", icon: Users }, baseItems[5]]
+    : baseItems;
 
   const handleNavClick = () => {
     if (isMobile) setOpenMobile(false);
