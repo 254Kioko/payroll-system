@@ -15,15 +15,15 @@ import {
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 
-const items = [
+const SUPER_ADMIN_EMAIL = "kiokoeddie254@gmail.com";
+
+const baseItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
   { title: "Rooms", url: "/rooms", icon: BedDouble },
   { title: "Bookings", url: "/bookings", icon: CalendarCheck },
   { title: "Expenses", url: "/expenses", icon: Receipt },
   { title: "Guests", url: "/guests", icon: Users },
-  { title: "Users", url: "/users", icon: Users },
   { title: "Support", url: "/support", icon: MessageCircle },
-
 ];
 
 export function AppSidebar() {
