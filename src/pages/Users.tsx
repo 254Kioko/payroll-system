@@ -100,7 +100,9 @@ export default function Users() {
                         )}
                       </TableCell>
                       <TableCell className="text-right">
-                        {u.id === currentUserId ? (
+                        {currentEmail !== SUPER_ADMIN_EMAIL ? (
+                          <span className="text-xs text-muted-foreground">—</span>
+                        ) : u.id === currentUserId ? (
                           <span className="text-xs text-muted-foreground">You</span>
                         ) : (
                           <AlertDialog>
